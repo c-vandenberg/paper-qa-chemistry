@@ -30,7 +30,7 @@ def main():
                     print("Invalid input. Please enter valid numbers for the number of papers and the start position.")
                     continue
 
-                paper_qa_utils.chatgpt_4o_zotero_embedder(num_papers, start_position)
+                docs = paper_qa_utils.chatgpt_4o_zotero_embedder(docs, num_papers, start_position)
 
         else:
             query = input("Paper QA Query: ")
