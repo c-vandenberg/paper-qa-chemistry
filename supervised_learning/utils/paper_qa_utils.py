@@ -1,5 +1,3 @@
-import sys
-import os
 import paperqa
 import openai
 import pickle
@@ -25,8 +23,26 @@ def get_user_confirmation(prompt: str) -> bool:
             print("Invalid input. Please enter 'y' or 'n'.")
 
 
-def chatgpt_4o_zotero_embedder(embedded_docs, query_limit: int, query_start: int):
+def get_user_positive_integer(prompt: str) -> int:
+    while True:
+        try:
+            value = int(input(prompt))
+            if value >= 0:
+                return value
+            else:
+                print("Please enter a positive integer.")
+        except ValueError:
+            print("Invalid input. Please enter a positive integer.")
+
+
+def chatgpt_4o_zotero_embedder(embedded_docs: paperqa.Docs, query_limit: int, query_start: int) -> paperqa.Docs:
     zotero: ZoteroDB = ZoteroDB(library_type='user')
+    library_size: int = zotero.count_items()
+
+    if query_start > library_size:
+        print(f"Starting position ({query_start}) cannot be larger than Zotero library size ({library_size})")
+        return embedded_docs
+
     papers: Generator = zotero.iterate(limit=query_limit, start=query_start)
 
     for i, paper in enumerate(tqdm(papers, desc="Processing Papers", ncols=100, miniters=1, mininterval=0.5),
