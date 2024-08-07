@@ -39,8 +39,8 @@ def main():
 
         else:
             while True:
-                query = input("Paper QA Query: ")
-                if query.lower == 'exit':
+                query: str = input("Paper QA Query: ")
+                if query.lower() == 'exit':
                     print('Exiting...')
                     return
                 response = docs.query(query)
