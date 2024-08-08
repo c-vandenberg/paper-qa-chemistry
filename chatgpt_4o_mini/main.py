@@ -23,13 +23,13 @@ def main():
 
     zotero: ZoteroDB = ZoteroDB(library_type='user')
     while True:
-        if paper_qa_utils.get_user_confirmation("Do you want to embed further papers? (y/n): "):
+        if paper_qa_utils.get_user_confirmation("Would you like to embed additional papers? (y/n): "):
             try:
                 num_papers = paper_qa_utils.get_user_positive_integer(
-                    f"How many papers would you like to embed? ({zotero.count_items()} papers in Zotero library): "
+                    f"Enter the number of papers to embed (Total Zotero database papers: {zotero.num_items()}): "
                 )
                 start_position = paper_qa_utils.get_user_positive_integer(
-                    "What position would you like to start from in your Zotero library?: "
+                    "Enter the starting point for embedding: "
                 )
             except ValueError:
                 print("Invalid input. Please enter valid numbers for the number of papers and the start position.")
