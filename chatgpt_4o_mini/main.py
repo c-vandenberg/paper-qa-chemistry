@@ -1,7 +1,5 @@
 import sys
 import os
-import paperqa
-import pickle
 from paperqa.contrib import ZoteroDB
 from ZoteroPaperEmbedder import ZoteroPaperEmbedder
 
@@ -13,6 +11,7 @@ from config.constants import ModelsConstants
 ZOTERO_LIBRARY_ID: str = os.getenv('ZOTERO_USER_ID')
 
 ZOTERO_API_KEY: str = os.getenv('ZOTERO_API_KEY')
+
 
 def main():
     zotero: ZoteroDB = ZoteroDB(library_type='user')

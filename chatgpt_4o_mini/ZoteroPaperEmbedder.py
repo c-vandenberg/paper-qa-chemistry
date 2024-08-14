@@ -8,8 +8,7 @@ from paperqa.contrib import ZoteroDB
 from paperqa import utils as paperqa_utils
 from pathlib import PosixPath, Path
 from tqdm import tqdm
-from typing import Generator, Union, Optional, List, Dict, cast
-from pyzotero import zotero
+from typing import Generator, Optional, List, cast
 from utils import llm_utils
 
 ZOTERO_LIBRARY_ID: str = os.getenv('ZOTERO_USER_ID')
