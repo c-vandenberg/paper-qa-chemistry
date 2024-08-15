@@ -3,11 +3,8 @@ import os
 from dotenv import load_dotenv
 from paperqa.contrib import ZoteroDB
 from src.models.zotero_paper_embedder import ZoteroPaperEmbedder
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-from src.utils import prompt_utils, llm_utils
-from src.config.constants import ModelsConstants
+from utils import prompt_utils, llm_utils
+from config.constants import ModelsConstants
 
 load_dotenv()
 
@@ -18,9 +15,13 @@ ZOTERO_API_KEY: str = os.getenv('ZOTERO_API_KEY')
 def main():
     zotero: ZoteroDB = ZoteroDB(library_type='user')
     while True:
+        llm_model = input(f"Enter the LLM model to use (default is GPT-4o Mini): ")
+        if not llm_model.strip():
+            llm_model = ModelsConstants.GPT_4o_MINI_LLM_MODEL
+
         docs = llm_utils.load_paperqa_doc(
-            pkl_file_path='../../data/processed/supervised_learning_gpt_4o_mini.pkl',
-            llm_model=ModelsConstants.GPT_LLM_MODEL
+            pkl_file_path='../data/processed/supervised_learning_gpt_4o_mini.pkl',
+            llm_model=llm_model
         )
 
         if prompt_utils.get_user_confirmation("Would you like to embed additional papers? (y/n): "):

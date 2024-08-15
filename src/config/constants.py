@@ -1,2 +1,2 @@
 class ModelsConstants:
-    GPT_LLM_MODEL = 'gpt-4o-mini'
+    GPT_4o_MINI_LLM_MODEL = 'gpt-4o-mini'
