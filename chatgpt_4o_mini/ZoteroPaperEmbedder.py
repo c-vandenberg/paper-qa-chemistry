@@ -1,4 +1,5 @@
 import os
+import sys
 import paperqa
 import openai
 import pickle
@@ -9,6 +10,9 @@ from paperqa import utils as paperqa_utils
 from pathlib import PosixPath, Path
 from tqdm import tqdm
 from typing import Generator, Optional, List, cast
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from utils import llm_utils
 
 ZOTERO_LIBRARY_ID: str = os.getenv('ZOTERO_USER_ID')
@@ -52,7 +56,7 @@ class ZoteroPaper(BaseModel):
 
 
 class ZoteroPaperEmbedder(ZoteroDB):
-    def __init__(self, library_id, library_type, api_key):
+    def __init__(self, library_id: Optional[str], library_type: str, api_key: Optional[str]):
         super().__init__(library_id=library_id, library_type=library_type, api_key=api_key)
 
     def chatgpt_4o_embedder(self, embedded_docs: paperqa.Docs, query_limit: int, query_start: int) -> paperqa.Docs:
@@ -69,6 +73,7 @@ class ZoteroPaperEmbedder(ZoteroDB):
             sort='title',
             direction='asc'
         )
+
         for i, paper in enumerate(tqdm(papers, desc="Processing Papers", ncols=100, miniters=1, mininterval=0.5),
                                   start=1):
             zotero_key = paper.details["key"]
@@ -96,7 +101,7 @@ class ZoteroPaperEmbedder(ZoteroDB):
                 print(f"\nUnexpected error: {e}")
                 break
 
-            with open('../chatgpt_4o_mini/data/processed/supervised_learning_gpt_4o_mini.pkl', 'wb') as file:
+            with open('data/processed/supervised_learning_gpt_4o_mini.pkl', 'wb') as file:
                 pickle.dump(embedded_docs, file)
             print(f"\nSaved checkpoint after processing paper {i}.")
 

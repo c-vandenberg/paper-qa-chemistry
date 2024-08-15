@@ -1,5 +1,6 @@
 import sys
 import os
+from dotenv import load_dotenv
 from paperqa.contrib import ZoteroDB
 from ZoteroPaperEmbedder import ZoteroPaperEmbedder
 
@@ -8,8 +9,9 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from utils import prompt_utils, llm_utils
 from config.constants import ModelsConstants
 
-ZOTERO_LIBRARY_ID: str = os.getenv('ZOTERO_USER_ID')
+load_dotenv()
 
+ZOTERO_LIBRARY_ID: str = os.getenv('ZOTERO_USER_ID')
 ZOTERO_API_KEY: str = os.getenv('ZOTERO_API_KEY')
 
 
