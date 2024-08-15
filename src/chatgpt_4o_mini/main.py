@@ -2,12 +2,12 @@ import sys
 import os
 from dotenv import load_dotenv
 from paperqa.contrib import ZoteroDB
-from ZoteroPaperEmbedder import ZoteroPaperEmbedder
+from src.models.zotero_paper_embedder import ZoteroPaperEmbedder
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from utils import prompt_utils, llm_utils
-from config.constants import ModelsConstants
+from src.utils import prompt_utils, llm_utils
+from src.config.constants import ModelsConstants
 
 load_dotenv()
 
@@ -19,7 +19,7 @@ def main():
     zotero: ZoteroDB = ZoteroDB(library_type='user')
     while True:
         docs = llm_utils.load_paperqa_doc(
-            pkl_file_path='data/processed/supervised_learning_gpt_4o_mini.pkl',
+            pkl_file_path='../../data/processed/supervised_learning_gpt_4o_mini.pkl',
             llm_model=ModelsConstants.GPT_LLM_MODEL
         )
 

@@ -4,7 +4,6 @@ import paperqa
 import openai
 import pickle
 import time
-from pydantic import BaseModel
 from paperqa.contrib import ZoteroDB
 from paperqa import utils as paperqa_utils
 from pathlib import PosixPath, Path
@@ -13,46 +12,12 @@ from typing import Generator, Optional, List, cast
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
+from models.zotero_paper import ZoteroPaper
 from utils import llm_utils
 
 ZOTERO_LIBRARY_ID: str = os.getenv('ZOTERO_USER_ID')
 
 ZOTERO_API_KEY: str = os.getenv('ZOTERO_API_KEY')
-
-
-class ZoteroPaper(BaseModel):
-    """A paper from Zotero.
-
-    Attributes:
-    ----------
-    key : str
-        The citation key.
-    title : str
-        The title of the item.
-    pdf : Path
-        The path to the PDF for the item (pass to `paperqa.Docs`)
-    num_pages : int
-        The number of pages in the PDF.
-    zotero_key : str
-        The Zotero key for the item.
-    details : dict
-        The full item details from Zotero.
-    """
-
-    key: str
-    title: str
-    pdf: Path
-    num_pages: int
-    zotero_key: str
-    details: dict
-
-    def __str__(self) -> str:
-        """Return the title of the paper."""
-        return (
-            f'ZoteroPaper(\n    key = "{self.key}",\n'
-            f'title = "{self.title}",\n    pdf = "{self.pdf}",\n    '
-            f'num_pages = {self.num_pages},\n    zotero_key = "{self.zotero_key}",\n    details = ...\n)'
-        )
 
 
 class ZoteroPaperEmbedder(ZoteroDB):
@@ -101,7 +66,7 @@ class ZoteroPaperEmbedder(ZoteroDB):
                 print(f"\nUnexpected error: {e}")
                 break
 
-            with open('data/processed/supervised_learning_gpt_4o_mini.pkl', 'wb') as file:
+            with open('../../data/processed/supervised_learning_gpt_4o_mini.pkl', 'wb') as file:
                 pickle.dump(embedded_docs, file)
             print(f"\nSaved checkpoint after processing paper {i}.")
 
