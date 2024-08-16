@@ -27,6 +27,9 @@ class ZoteroPaperEmbedder(ZoteroDB):
     def chatgpt_4o_embedder(self, embedded_docs: paperqa.Docs, query_limit: int, query_start: int) -> paperqa.Docs:
         zotero: ZoteroDB = ZoteroDB(library_type='user')
         library_size: int = zotero.num_items()
+        llm_model = embedded_docs.llm
+        pickle_file_path: str = (f"../data/processed/paper_qa_"
+                                 f"{llm_model.lower().replace(' ', '_').replace('-', '_')}.pkl")
 
         if query_start > library_size:
             print(f"Starting position ({query_start}) cannot be larger than Zotero database size ({library_size})")
@@ -66,7 +69,7 @@ class ZoteroPaperEmbedder(ZoteroDB):
                 print(f"\nUnexpected error: {e}")
                 break
 
-            with open('../../data/processed/supervised_learning_gpt_4o_mini.pkl', 'wb') as file:
+            with open(pickle_file_path, 'wb') as file:
                 pickle.dump(embedded_docs, file)
             print(f"\nSaved checkpoint after processing paper {i}.")
 

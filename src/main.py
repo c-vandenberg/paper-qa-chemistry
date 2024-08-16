@@ -19,10 +19,15 @@ def main():
         if not llm_model.strip():
             llm_model = ModelsConstants.GPT_4o_MINI_LLM_MODEL
 
-        docs = llm_utils.load_paperqa_doc(
-            pkl_file_path='../data/processed/supervised_learning_gpt_4o_mini.pkl',
-            llm_model=llm_model
-        )
+        try:
+            docs = llm_utils.load_paperqa_doc(
+                pkl_file_path=f"../data/processed/paper_qa_"
+                              f"{llm_model.lower().replace(' ', '_').replace('-', '_')}.pkl",
+                llm_model=llm_model
+            )
+        except ValueError:
+            print(f"{llm_model} is not a valid LLM model")
+            continue
 
         if prompt_utils.get_user_confirmation("Would you like to embed additional papers? (y/n): "):
             try:
