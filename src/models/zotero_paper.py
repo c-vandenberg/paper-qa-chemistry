@@ -3,7 +3,8 @@ from pathlib import Path
 
 
 class ZoteroPaper(BaseModel):
-    """A paper from Zotero.
+    """
+    A paper from Zotero.
 
     Attributes:
     ----------
@@ -19,6 +20,11 @@ class ZoteroPaper(BaseModel):
         The Zotero key for the item.
     details : dict
         The full item details from Zotero.
+
+    Notes
+    -----
+    This class is taken from the `zotero.py` module of the `paperqa` package, available at
+    https://github.com/Future-House/paper-qa/blob/main/paperqa/contrib/zotero.py.
     """
 
     key: str

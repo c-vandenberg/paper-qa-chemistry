@@ -22,6 +22,38 @@ ZOTERO_API_KEY: str = os.getenv('ZOTERO_API_KEY')
 
 
 class ZoteroPaperEmbedder(ZoteroDB):
+    """
+    A class for embedding papers from a Zotero database into a set of vectors using a specified language model.
+
+    This class extends the `ZoteroDB` class from the `paperqa` package and provides additional functionality
+    for embedding papers from Zotero into a `paperqa.Docs` object. It also includes methods for outputting
+    logs to a PySimpleGUI interface.
+
+    Attributes
+    ----------
+    console_multiline : sg.Multiline
+        A PySimpleGUI Multiline element for logging output.
+    window : sg.Window
+        The PySimpleGUI window that contains the Multiline element.
+
+    Methods
+    -------
+    console_output(message: str)
+        Logs a message to the Multiline element or prints it to the console.
+    chatgpt_4o_embedder(embedded_docs: paperqa.Docs, query_limit: int, query_start: int) -> paperqa.Docs
+        Embeds papers from Zotero into the given `paperqa.Docs` object.
+    iterate(limit: int = 25, start: int = 0, q: Optional[str] = None, qmode: Optional[str] = None, since: Optional[str] = None,
+            tag: Optional[str] = None, sort: Optional[str] = None, direction: Optional[str] = None,
+            collection_name: Optional[str] = None) -> Generator[ZoteroPaper, None, None]
+        Lazily iterates over papers in a Zotero library and downloads PDFs as needed.
+    _get_citation_key(item: dict) -> str
+        Generates a citation key for a Zotero item based on its metadata.
+
+    Notes
+    -----
+    This class extends and overrides the `ZoteroDB` class implementation found in the `zotero.py` module of the
+    `paperqa` package, available at https://github.com/Future-House/paper-qa/blob/main/paperqa/contrib/zotero.py.
+    """
     def __init__(self, library_id: Optional[str], library_type: str, api_key: Optional[str], console_multiline=None,
                  window=None):
         super().__init__(library_id=library_id, library_type=library_type, api_key=api_key)
@@ -29,17 +61,51 @@ class ZoteroPaperEmbedder(ZoteroDB):
         self.window = window
 
     def console_output(self, message: str):
-        """Log the message to the Multiline element or print to the console."""
+        """
+        Logs a message to the Multiline element or prints it to the console.
+
+        Parameters
+        ----------
+        message : str
+            The message to log.
+
+        Notes
+        -----
+        If `console_multiline` is provided, the message is logged to the PySimpleGUI Multiline element.
+        Otherwise, it is printed to the console.
+        """
         if self.console_output:
             self.console_multiline.print(message)
             self.window.refresh()
         else:
             print(message)
 
-    def chatgpt_4o_embedder(self, embedded_docs: paperqa.Docs, query_limit: int, query_start: int) -> paperqa.Docs:
+    def embed_docs(self, embedded_docs: paperqa.Docs, query_limit: int, query_start: int) -> paperqa.Docs:
+        """
+        Embeds papers from the Zotero database into vectors within a `paperqa.Docs` object.
+
+        Parameters
+        ----------
+        embedded_docs : paperqa.Docs
+            The document set to which papers will be embedded as vectors.
+        query_limit : int
+            The number of papers to embed into the document set.
+        query_start : int
+            The starting position in the Zotero database to begin the embedding.
+
+        Returns
+        -------
+        paperqa.Docs
+            The updated document set with the newly embedded paper vectors.
+
+        Notes
+        -----
+        This method processes papers from the Zotero database, checking for duplicates and handling potential
+        errors such as API rate limits.
+        """
         zotero: ZoteroDB = ZoteroDB(library_type='user')
         library_size: int = zotero.num_items()
-        llm_model = embedded_docs.llm
+        llm_model: str = embedded_docs.llm
         pkl_file_path: str = (f"../data/processed/paper_qa_"
                               f"{llm_model.lower().replace(' ', '_').replace('-', '_')}.pkl")
 
@@ -98,9 +164,58 @@ class ZoteroPaperEmbedder(ZoteroDB):
             direction: Optional[str] = None,
             collection_name: Optional[str] = None,
     ):
-        """Given a search query, this will lazily iterate over papers in a Zotero library,
-        downloading PDFs as needed."""
+        """Given a search query, this will lazily iterate over papers in a Zotero library, downloading PDFs as needed.
 
+        This will download all PDFs in the query.
+        For information on parameters, see
+        https://pyzotero.readthedocs.io/en/latest/?badge=latest#zotero.Zotero.add_parameters
+        For extra information on the query, see
+        https://www.zotero.org/support/dev/web_api/v3/basics#search_syntax.
+
+        For each item, it will return a `ZoteroPaper` object, which has the following fields:
+
+            - `pdf`: The path to the PDF for the item (pass to `paperqa.Docs`)
+            - `key`: The citation key.
+            - `title`: The title of the item.
+            - `details`: The full item details from Zotero.
+
+        Parameters
+        ----------
+        q : str, optional
+            Quick search query. Searches only titles and creator fields by default.
+            Control with `qmode`.
+        qmode : str, optional
+            Quick search mode. One of `titleCreatorYear` or `everything`.
+        since : int, optional
+            Only return objects modified after the specified library version.
+        tag : str, optional
+            Tag search. Can use `AND` or `OR` to combine tags.
+        sort : str, optional
+            The name of the field to sort by. One of dateAdded, dateModified,
+            title, creator, itemType, date, publisher, publicationTitle,
+            journalAbbreviation, language, accessDate, libraryCatalog, callNumber,
+            rights, addedBy, numItems (tags).
+        direction : str, optional
+            asc or desc.
+        limit : int, optional
+            The maximum number of items to return. Default is 25. You may use the `start`
+            parameter to continue where you left off.
+        start : int, optional
+            The index of the first item to return. Default is 0.
+
+        Yields
+        ------
+        ZoteroPaper
+            An instance of `ZoteroPaper` for each paper retrieved.
+
+        Notes
+        -----
+        This method overrides the `ZoteroDB.iterate()` class method found in the `zotero.py` module of the `paperqa`
+        package, available at https://github.com/Future-House/paper-qa/blob/main/paperqa/contrib/zotero.py.
+
+        Overriding was necessary as there was a bug within the original method logic that prevented embedding past the
+        first 100 papers in the Zotero database.
+        """
         query_kwargs = {}
 
         if q is not None:
@@ -176,6 +291,26 @@ class ZoteroPaperEmbedder(ZoteroDB):
 
     @staticmethod
     def _get_citation_key(item: dict) -> str:
+        """
+        Generates a citation key for a Zotero item based on its metadata.
+
+        Parameters
+        ----------
+        item : dict
+            The metadata of the Zotero item.
+
+        Returns
+        -------
+        str
+            The generated citation key, which includes the author's last name, a short title, and the date.
+
+        Notes
+        -----
+        This method uses the `ZoteroDB` class implementation found in the `zotero.py` module of the
+        `paperqa` package, available at https://github.com/Future-House/paper-qa/blob/main/paperqa/contrib/zotero.py.
+
+        No changes have been made to the method logic.
+        """
         if (
                 "data" not in item
                 or "creators" not in item["data"]
