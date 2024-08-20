@@ -4,6 +4,7 @@ import paperqa
 import openai
 import pickle
 import time
+import PySimpleGUI as sg
 from paperqa.contrib import ZoteroDB
 from paperqa import utils as paperqa_utils
 from pathlib import PosixPath, Path
@@ -21,57 +22,68 @@ ZOTERO_API_KEY: str = os.getenv('ZOTERO_API_KEY')
 
 
 class ZoteroPaperEmbedder(ZoteroDB):
-    def __init__(self, library_id: Optional[str], library_type: str, api_key: Optional[str]):
+    def __init__(self, library_id: Optional[str], library_type: str, api_key: Optional[str], console_multiline=None, window=None):
         super().__init__(library_id=library_id, library_type=library_type, api_key=api_key)
+        self.console_multiline = console_multiline
+        self.window = window
+
+    def console_output(self, message: str):
+        """Log the message to the Multiline element or print to the console."""
+        if self.console_output:
+            self.console_multiline.print(message)
+            self.window.refresh()
+        else:
+            print(message)
 
     def chatgpt_4o_embedder(self, embedded_docs: paperqa.Docs, query_limit: int, query_start: int) -> paperqa.Docs:
         zotero: ZoteroDB = ZoteroDB(library_type='user')
         library_size: int = zotero.num_items()
         llm_model = embedded_docs.llm
-        pickle_file_path: str = (f"../data/processed/paper_qa_"
-                                 f"{llm_model.lower().replace(' ', '_').replace('-', '_')}.pkl")
+        pkl_file_path: str = (f"../data/processed/paper_qa_"
+                              f"{llm_model.lower().replace(' ', '_').replace('-', '_')}.pkl")
 
         if query_start > library_size:
-            print(f"Starting position ({query_start}) cannot be larger than Zotero database size ({library_size})")
+            sg.popup_error(f"Starting position ({query_start}) cannot be larger than Zotero database size "
+                           f"({library_size})")
             return embedded_docs
 
         papers: Generator = self.iterate(
             limit=query_limit,
             start=query_start,
-            sort='title',
-            direction='asc'
+            sort='dateAdded',
+            direction='desc'
         )
 
         for i, paper in enumerate(tqdm(papers, desc="Processing Papers", ncols=100, miniters=1, mininterval=0.5),
                                   start=1):
             zotero_key = paper.details["key"]
             if zotero_key in embedded_docs.docnames:
-                print(f"\nSkipping already processed paper {i}: {paper.title}")
+                self.console_output(f"\nSkipping already processed paper {i}: {paper.title}")
                 continue
 
-            print(f"\nProcessing paper {i}: {paper.title}")
+            self.console_output(f"\nProcessing paper {i}: {paper.title}")
 
             paper_content: PosixPath = paper.pdf
             num_tokens: int = llm_utils.calculate_tokens_from_pdf(paper_content, 'gpt-4o-mini')
 
-            print(f"\nPaper contains {num_tokens} input tokens")
+            self.console_output(f"\nPaper contains {num_tokens} input tokens")
 
             try:
                 embedded_docs.add(paper.pdf, docname=zotero_key)
             except openai.RateLimitError as e:
-                print(f"\nRate limit exceeded: {e}. Waiting before retrying...")
+                sg.popup_error(f"\nRate limit exceeded: {e}. Waiting 60s before retrying...")
                 time.sleep(60)  # Wait for 60 seconds before retrying
                 continue
             except openai.OpenAIError as e:
-                print(f"\nOpenAI API error: {e}")
+                sg.popup_error(f"\nOpenAI API error: {e}")
                 break
             except Exception as e:
-                print(f"\nUnexpected error: {e}")
+                sg.popup_error(f"\nUnexpected error: {e}")
                 break
 
-            with open(pickle_file_path, 'wb') as file:
+            with open(pkl_file_path, 'wb') as file:
                 pickle.dump(embedded_docs, file)
-            print(f"\nSaved checkpoint after processing paper {i}.")
+            self.console_output(f"\nSaved checkpoint after processing paper {i}.")
 
     def iterate(
             self,
@@ -141,7 +153,7 @@ class ZoteroPaperEmbedder(ZoteroDB):
                 is_duplicate = pdf in pdfs
 
                 if no_pdf or is_duplicate:
-                    print(f"\nSkipping paper '{item['data']['title']}' as it has no associated PDF.")
+                    self.console_output(f"\nSkipping paper '{item['data']['title']}' as it has no associated PDF.")
                     continue
                 pdf = cast(Path, pdf)
                 title = item["data"].get("title", "")
