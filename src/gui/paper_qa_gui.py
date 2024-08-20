@@ -1,7 +1,7 @@
+import os
 import sys
 import PySimpleGUI as sg
 from dotenv import load_dotenv
-import os
 from paperqa.contrib import ZoteroDB
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
