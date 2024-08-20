@@ -92,13 +92,6 @@ class PaperQAGUI:
         response = docs.query(query)
         sg.popup_scrolled(f"Response: {response.formatted_answer}", title="Query Result", size=(50, 20))
 
-    @staticmethod
-    def validate_positive_integer(value, field_name):
-        if not value.isdigit() or int(value) < 0:
-            sg.popup_error(f"Please enter a valid positive integer for {field_name}.")
-            return False
-        return True
-
     def run(self):
         while True:
             event, values = self.window.read()
@@ -124,3 +117,10 @@ class PaperQAGUI:
                 self.submit_query(values['llm_model_input'], values['query_input'])
 
         self.window.close()
+
+    @staticmethod
+    def validate_positive_integer(value, field_name):
+        if not value.isdigit() or int(value) < 0:
+            sg.popup_error(f"Please enter a valid positive integer for {field_name}.")
+            return False
+        return True

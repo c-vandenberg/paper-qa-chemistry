@@ -22,7 +22,8 @@ ZOTERO_API_KEY: str = os.getenv('ZOTERO_API_KEY')
 
 
 class ZoteroPaperEmbedder(ZoteroDB):
-    def __init__(self, library_id: Optional[str], library_type: str, api_key: Optional[str], console_multiline=None, window=None):
+    def __init__(self, library_id: Optional[str], library_type: str, api_key: Optional[str], console_multiline=None,
+                 window=None):
         super().__init__(library_id=library_id, library_type=library_type, api_key=api_key)
         self.console_multiline = console_multiline
         self.window = window

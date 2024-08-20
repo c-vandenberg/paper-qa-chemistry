@@ -5,7 +5,7 @@ __pycache__/
 # Ignore all files in the .idea directory
 .idea/
 
-# Ignore pickle files
+# Ignore pkl files
 *.pkl
 
 # Ignore env files
