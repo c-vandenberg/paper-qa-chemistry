@@ -4,7 +4,7 @@
   <div align="center">
     <img src="https://github.com/user-attachments/assets/77eb0ea1-3e92-4f22-a37a-247ebbc5c85b", alt="paper-qa-gui"/>
     <p>
-      <b>Fig 1</b> Paper QA graphical user interface (GUI).
+      <b>Fig 1</b> Custom Paper QA graphical user interface (GUI) implemented in this repository.
     </p>
   </div>
 
@@ -18,9 +18,9 @@ It utilises a combination of **text embeddings**, **vectorization**, and **LLM-b
 
 ### 1.2.1 What are Vectors?
 
-**Vectors** belong to the larger category of **tensors**. In machine learning (ML), "tensor" is used as a generic term for a **single or multi-dimensional array of numbers** in *n*-dimensional space. 
+**Vectors** belong to the larger category of **tensors**. In machine learning (ML), "tensor" is used as a generic term for a **single or multi-dimensional array of numbers** in *n*-dimensional space. **<sup>2</sup>**
 
-When describing a tensor, the word **dimension** refers to **how many arrays that tensor contains**. When describing a vector, dimension refers to **how many individual numbers/components that vector contains**.
+When describing a tensor, the word **dimension** refers to **how many arrays that tensor contains**. When describing a vector, dimension refers to **how many individual numbers/features that vector contains**.
 
 1. A **scalar** is a **zero-dimensional tensor**, containing a **single number**.
    * For example, a system modelling weather data might represent a single day's high temperature (in Celsius) in **scalar form** as 33
@@ -37,14 +37,38 @@ Though the terms are often used interchangably in ML, **vectors and embeddings a
 
 An **embedding** is **any numerical representations** of data that **captures its relevant qualities** in a way that **ML algorithms can process**. The data is **embedded in n-dimensional space**.
 
-In theory, data doesn't need to be 
+In theory, data **doesn't need to be embedded as a vector**. For example, some types of data can be embedded in **tuple form**. However in practice, **embeddings predominantely take the form of vectors in modern ML**.
 
 
 ### 1.2.3 What are Vector Embeddings?
 
-Vector embeddings are **numerical representations of data points**, and can include **non-mathematical data** such as **words** or **images**. An embedding is a **vector (a multi-dimensional array of floating points)**, and the **distance between two vectors** measures their **relatedness**. **Small distances** suggest **high relatedness**, and **large distances** suggest **low relatedness**.
+<br>
+  <div align="center">
+    <img src="https://github.com/user-attachments/assets/cd7c2ab4-4237-4808-9445-5be686e8f7e2", alt="vector-embeddings"/>
+    <p>
+      <b>Fig 2</b> Schematic representation of vector embedding. <b><sup>3</sup></b>
+    </p>
+  </div>
 
-Any data that an AI model operates on, including **non-mathematical, unstructured data** such as text, audio or images, **must be expressed numerically**. At a high level, **vector embedding** 
+Vector embeddings are **numerical representations of data points**, and can include **non-mathematical data** such as **words** or **images**. 
 
+Vector embedding **transforms a data point** into an **n-dimensional array of floating point numbers** representing that data point's **characteristics** (i.e. its **features**). Vector embeddings can have **dozens, hundreds or even thousands of dimensions**. 
+
+Vector embedding is achieved by **training an embedding model** on an **data set relevant to the task at hand** or by using a **pretrained embedding model**. is a **vector (a multi-dimensional array of floating points)**, and the **distance between two vectors** measures their **relatedness**: 
+* **Small distances** suggest **high relatedness**, and **large distances** suggest **low relatedness**.
+
+### 1.2.4 How to Compare Vector Embeddings?
+
+Any data that an AI model operates on, including **non-mathematical, unstructured data** such as text, audio or images, **must be expressed numerically**. At a high level, **vector embedding** is a way to **convert an unstructured data point** into an **array of numbers** that **still expresses that data's original meaning**.
+
+The **core logic of vector embeddings** is that **n-dimensional embeddings of similar data points** should be **grouped closely together in n-dimensional space**. That is, the **distance between two vectors** measures their **relatedness**. **Small distances** suggest **high relatedness**, and **large distances** suggest **low relatedness**.
+
+## 1.3 Vector Embedding in Paper QA
+
+In Paper QA, both the **academic papers** and **user queries** are **converted into embeddings**. This allows the system to **compare and analyse the semantic content of the query** against the **vast amount of information contained within the papers**.
+
+As stated previously, the key idea is that **semantically similar pieces of text** will have **embeddings that are close to each other in the vector space**. In Paper QA, these embeddings can be:
+1. **Word Embeddings** - This is when **individual words** are represented as vectors, where **words with similar meanings have similar vectors**
+2. **Sentence or Document Embeddings** - This **extends the concept to entire sentences or documents**, creating a **single vector** that **captures the overall meaning of the text**.
 
 ## References
