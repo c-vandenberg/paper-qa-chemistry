@@ -88,9 +88,22 @@ Paper QA uses the following process to embed the academic papers into vectors:
 
 When a user submits a query, Paper QA follows a similar process:
 1. **Query Preprocessing**: The query is first **processed** to **remove any unnecessary information** and to **prepare it for embedding**.
-2. **Query Embedding**: The processed query then follows the **same process as the academic papers**, with the **same embedding model**.
+2. **Query Embedding**: The processed query then follows the **same process as the academic papers**, with the **same embedding model**, generating a vector that represents the **semantic meaning of the query**.
 
 ### 1.4.3 Matching the Query with Relevant Papers
+
+Once the query has been embedded into a vector, Paper QA **compares this vector** with the **vectors of the paper tokens stored in the database**. This involves:
+
+1. **Similarity Search**: The system performs a similarity search between the **query vector** and the **paper vectors**. This involves calculating the **cosine similarity between the vectors**. This is a measure of **how close the vectors are to each other in the vector space**. Paper vectors that are **closer to the query vector** represent paper text that is **more semantically similar** to the query.
+2. **Relevant Text Retrieval**: The tokens (which may represent single words, sentences or entire sections) that are **most similar to the query** are retrieved, ranked and passed to the LLM for **further processing**.
+
+### 1.4.4 LLM Answer Generation
+
+The final step involves **generating an answer to the user's query**:
+
+1. **Re-scoring**: The **retrieved paper tokens**, which are **most relevant to the query**, are **fed into an LLM** to be re-scored and the text summarised. By default, Paper QA uses `gpt-4o-mini` for this step.
+2. **Contextual Answering with Prompt**: The system has a defined prompt that can be used to contextualise the answer to the query. The summarised text is then put into the prompt and **fed into another LLM**. By default, Paper QA uses `gpt-4-turbo` for this step. The LLM uses this context to generate a **coherent and accurate answer** to the query.
+3. **Reference and Source Integration**: The LLM can also be configured via the prompt to **provide references to the papers** or the **sections of papers** it used to generate the answer.
 
 
 ## References
