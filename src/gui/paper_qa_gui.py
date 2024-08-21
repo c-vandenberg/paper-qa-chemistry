@@ -8,7 +8,6 @@ from paperqa.contrib import ZoteroDB
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from models.zotero_paper_embedder import ZoteroPaperEmbedder
-from utils import llm_utils
 from config.constants import ModelsConstants
 
 load_dotenv()
