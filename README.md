@@ -105,5 +105,8 @@ The final step involves **generating an answer to the user's query**:
 2. **Contextual Answering with Prompt**: The system has a defined prompt that can be used to contextualise the answer to the query. The summarised text is then put into the prompt and **fed into another LLM**. By default, Paper QA uses `gpt-4-turbo` for this step. The LLM uses this context to generate a **coherent and accurate answer** to the query.
 3. **Reference and Source Integration**: The LLM can also be configured via the prompt to **provide references to the papers** or the **sections of papers** it used to generate the answer.
 
+## 1.5 Paper QA Chemistry Implementation
+
+This repository builds on the aforementioned Paper QA package to extract papers from a user's **Zotero database**
 
 ## References
