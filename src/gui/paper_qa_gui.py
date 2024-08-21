@@ -56,8 +56,8 @@ class PaperQAGUI:
         self.zotero = ZoteroDB(library_type='user')
         self.layout = [
             [sg.Text('Paper QA Interface')],
-            [sg.Text('Enter the LLM model to use: ')],
-            [sg.InputText(default_text='GPT-4o Mini', key='llm_model_input', size=(40, 1))],
+            [sg.Text('Enter the language model to use: ')],
+            [sg.InputText(default_text='gpt-4o-mini', key='llm_model_input', size=(40, 1))],
             [sg.Text(f"Enter the number of papers to embed (Max batch size = 100. "
                      f"Total Zotero database papers = {self.zotero.num_items()}): ")],
             [sg.InputText(key='num_papers_input', size=(40, 1), enable_events=True)],
@@ -98,8 +98,16 @@ class PaperQAGUI:
         if not llm_model.strip():
             llm_model = ModelsConstants.GPT_4o_MINI_LLM_MODEL
 
+        zotero_paper_embedder: ZoteroPaperEmbedder = ZoteroPaperEmbedder(
+            library_id=ZOTERO_LIBRARY_ID,
+            library_type='user',
+            api_key=ZOTERO_API_KEY,
+            console_multiline=self.window['console_multiline'],
+            window=self.window
+        )
+
         try:
-            docs: paperqa.Docs = llm_utils.load_paperqa_doc(
+            docs: paperqa.Docs = zotero_paper_embedder.load_paperqa_doc(
                 pkl_file_path=f"../data/processed/paper_qa_"
                               f"{llm_model.lower().replace(' ', '_').replace('-', '_')}.pkl",
                 llm_model=llm_model
@@ -111,14 +119,6 @@ class PaperQAGUI:
         if not num_papers or not start_position:
             sg.popup_error("Invalid input. Please enter valid numbers.")
             return
-
-        zotero_paper_embedder: ZoteroPaperEmbedder = ZoteroPaperEmbedder(
-            library_id=ZOTERO_LIBRARY_ID,
-            library_type='user',
-            api_key=ZOTERO_API_KEY,
-            console_multiline=self.window['console_multiline'],
-            window=self.window
-        )
 
         zotero_paper_embedder.embed_docs(
             embedded_docs=docs,
