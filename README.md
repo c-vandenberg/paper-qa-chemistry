@@ -14,7 +14,9 @@
 
 It utilises a combination of **text embeddings**, **vectorization**, and **LLM-based processing** to deliver accurate and contextually relevant answers to queries, with no hallucinations. The answers to the queries are based on the content of the papers that have been embedded.
 
-## 1.2 How Does Paper QA Work?
+## 1.2 Vectors, Embeddings, and Vector Embeddings
+
+Before we discuss how Paper QA works, it is essential to understand the concepts of **vectors**, **embeddings**, and **vector embeddings**. If the reader understands these topics already, feel free to skip to sections **1.3** and **1.4**
 
 ### 1.2.1 What are Vectors?
 
@@ -70,5 +72,7 @@ In Paper QA, both the **academic papers** and **user queries** are **converted i
 As stated previously, the key idea is that **semantically similar pieces of text** will have **embeddings that are close to each other in the vector space**. In Paper QA, these embeddings can be:
 1. **Word Embeddings** - This is when **individual words** are represented as vectors, where **words with similar meanings have similar vectors**
 2. **Sentence or Document Embeddings** - This **extends the concept to entire sentences or documents**, creating a **single vector** that **captures the overall meaning of the text**.
+
+## 1.4 How Does Paper QA Work?
 
 ## References
