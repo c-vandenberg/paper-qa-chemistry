@@ -16,7 +16,7 @@ It utilises a combination of **text embeddings**, **vectorization**, and **LLM-b
 
 ## 1.2 Vectors, Embeddings, and Vector Embeddings
 
-Before we discuss how Paper QA works, it is essential to understand the concepts of **vectors**, **embeddings**, and **vector embeddings**. If the reader understands these topics already, feel free to skip to sections **1.3** and **1.4**
+Before we discuss how Paper QA works, it is essential to understand the concepts of **vectors**, **embeddings**, and **vector embeddings**. If the reader understands these topics already, feel free to skip to sections **1.3** and **1.4**.
 
 ### 1.2.1 What are Vectors?
 
@@ -74,5 +74,23 @@ As stated previously, the key idea is that **semantically similar pieces of text
 2. **Sentence or Document Embeddings** - This **extends the concept to entire sentences or documents**, creating a **single vector** that **captures the overall meaning of the text**.
 
 ## 1.4 How Does Paper QA Work?
+
+### 1.4.1 Vector Embedding of Academic Papers
+
+Paper QA uses the following process to embed the academic papers into vectors:
+
+1. **Text Extraction**: The text from the paper to be embedded to extracted, typically **section by section** (e.g. abstract, introduction, methods etc).
+2. **Text Tokenization**: **Text generation** and **embedding** models process text in **chunks** called **tokens**. Therefore, the words in the text are **decomposed into these tokens**, with 1 token being approximately **4 characters or 0.75 words** for English text.
+3. **Vector Embedding**: Each token is then **passed through a pre-trained embedding model** to convert it into a vector. By default Paper QA uses OpenAI's **`text-embedding-3-small`** embedding model.
+4. **Vector Storage**: The resulting vectors are then **stored in a vector database**. This allows for **efficient retrieval and comparison when a query is made**. Paper QA uses a **simple numpy vector database** to embed and search documents.
+
+### 1.4.2 Vector Embedding of Query
+
+When a user submits a query, Paper QA follows a similar process:
+1. **Query Preprocessing**: The query is first **processed** to **remove any unnecessary information** and to **prepare it for embedding**.
+2. **Query Embedding**: The processed query then follows the **same process as the academic papers**, with the **same embedding model**.
+
+### 1.4.3 Matching the Query with Relevant Papers
+
 
 ## References
