@@ -1,5 +1,14 @@
 # Paper QA - Chemistry
 
+<br>
+  <div align="center">
+    <img src="https://github.com/user-attachments/assets/77eb0ea1-3e92-4f22-a37a-247ebbc5c85b", alt="paper-qa-gui"/>
+    <p>
+      <b>Fig 1</b> Paper QA graphical user interface (GUI).
+    </p>
+  </div>
+<br>
+
 ## 1.1 What is Paper QA?
 
 **Paper QA** **<sup>1</sup>** is a package designed to help users **query and extract information** from a collection of academic papers by **leveraging large language models (LLMs)** such as those provided by **OpenAI**. 
@@ -38,14 +47,5 @@ Vector embeddings are **numerical representations of data points**, and can incl
 
 Any data that an AI model operates on, including **non-mathematical, unstructured data** such as text, audio or images, **must be expressed numerically**. At a high level, **vector embedding** 
 
-
-<br>
-  <div align="center">
-    <img src="https://github.com/user-attachments/assets/77eb0ea1-3e92-4f22-a37a-247ebbc5c85b", alt="paper-qa-gui"/>
-    <p>
-      <b>Fig 1</b> Paper QA graphical user interface (GUI).
-    </p>
-  </div>
-<br>
 
 ## References
