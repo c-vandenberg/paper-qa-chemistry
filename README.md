@@ -20,8 +20,8 @@ It utilises a combination of **text embeddings**, **vectorization**, and **LLM-b
 
 1. This program in this repository builds on the aforementioned Paper QA package to extract papers from a user's **Zotero database**. Specifically, it has been designed using the author's database of academic papers in the areas of:
    * **Organic chemistry**
-   * **Cheminformatics**
    * **Drug discovery and development**
+   * **Cheminformatics**
    * And the **applications of machine learning to these areas**.
 3. It **overrrides some of the logic** in `paperqa.contrib.ZoteroDB` as it was discovered during the development, whereby papers past the first 100 in the Zoetero database were not being processed, even if the starting position was set as >100.
 4. It allows the user to **choose the LLM to be used**, how many papers to embed and where in the database to start the processing batch, and input their query. It additionally outputs embedding information (e.g. embedding progress, number of tokens per paper etc.)
