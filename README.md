@@ -10,7 +10,7 @@
 
 ## 1.1 What is Paper QA?
 
-**Paper QA** **<sup>1</sup>** is a package designed to help users **query and extract information** from a collection of academic papers by **leveraging large language models (LLMs)** such as those provided by **OpenAI**. 
+[**Paper QA**](https://github.com/Future-House/paper-qa) is a package designed to help users **query and extract information** from a collection of academic papers by **leveraging large language models (LLMs)** such as those provided by **OpenAI**. 
 
 It utilises a combination of **text embeddings**, **vectorization**, and **LLM-based processing** to deliver accurate and contextually relevant answers to queries, with no hallucinations. The answers to the queries are based on the content of the papers that have been embedded, along with **prompts** used to contextualise the answer.
 
@@ -67,7 +67,7 @@ Before we discuss how Paper QA works, it is essential to understand the concepts
 
 ### 1.3.1 What are Vectors?
 
-**Vectors** belong to the larger category of **tensors**. In machine learning (ML), "tensor" is used as a generic term for a **single or multi-dimensional array of numbers** in *n*-dimensional space. **<sup>2</sup>**
+**Vectors** belong to the larger category of **tensors**. In machine learning (ML), "tensor" is used as a generic term for a **single or multi-dimensional array of numbers** in *n*-dimensional space. **<sup>1</sup>**
 
 When describing a tensor, the word **dimension** refers to **how many arrays that tensor contains**. When describing a vector, dimension refers to **how many individual numbers/features that vector contains**.
 
@@ -78,7 +78,7 @@ When describing a tensor, the word **dimension** refers to **how many arrays tha
 3. A **tuple** is a **one-dimensional tensor**, containing **multiple scalars** of **more than one type of data**.
    * For example, a person’s name, age and height (in inches) might be represented in tuple form as (Jane, Smith, 31, 65).
 4. A **matrix** is a **two-dimensional tensor**, containgin **multiple vectors of the same type of data**. Intuitively, it can be visualised as a **two-dimensional array/grid of scalars**, where **each row or column is a vector**.
-   * For example, that weather model might represent the entire month of June as a 3x30 matrix, in which each row is a feature vector describing an individual day’s low, mean and high temperatures.
+   * For example, that weather model might represent the entire month of June as a 3x30 matrix, in which each row is a feature vector describing an individual day’s low, mean and high temperatures. **<sup>1</sup>**
 
 ### 1.3.2 What are Embeddings?
 
@@ -86,7 +86,7 @@ Though the terms are often used interchangably in ML, **vectors and embeddings a
 
 An **embedding** is **any numerical representations** of data that **captures its relevant qualities** in a way that **ML algorithms can process**. The data is **embedded in n-dimensional space**.
 
-In theory, data **doesn't need to be embedded as a vector**. For example, some types of data can be embedded in **tuple form**. However in practice, **embeddings predominantely take the form of vectors in modern ML**.
+In theory, data **doesn't need to be embedded as a vector**. For example, some types of data can be embedded in **tuple form**. However in practice, **embeddings predominantely take the form of vectors in modern ML**. **<sup>1</sup>**
 
 ### 1.3.3 What are Vector Embeddings?
 
@@ -94,7 +94,7 @@ In theory, data **doesn't need to be embedded as a vector**. For example, some t
   <div align="center">
     <img src="https://github.com/user-attachments/assets/cd7c2ab4-4237-4808-9445-5be686e8f7e2", alt="vector-embeddings"/>
     <p>
-      <b>Fig 4</b> Schematic representation of vector embedding. <b><sup>3</sup></b>
+      <b>Fig 4</b> Schematic representation of vector embedding. <b><sup>2</sup></b>
     </p>
   </div>
 
@@ -103,13 +103,13 @@ Vector embeddings are **numerical representations of data points**, and can incl
 Vector embedding **transforms a data point** into an **n-dimensional array of floating point numbers** representing that data point's **characteristics** (i.e. its **features**). Vector embeddings can have **dozens, hundreds or even thousands of dimensions**. 
 
 Vector embedding is achieved by **training an embedding model** on an **data set relevant to the task at hand** or by using a **pretrained embedding model**. is a **vector (a multi-dimensional array of floating points)**, and the **distance between two vectors** measures their **relatedness**: 
-* **Small distances** suggest **high relatedness**, and **large distances** suggest **low relatedness**.
+* **Small distances** suggest **high relatedness**, and **large distances** suggest **low relatedness**. **<sup>1</sup>**
 
 ### 1.3.4 How to Compare Vector Embeddings?
 
 Any data that an AI model operates on, including **non-mathematical, unstructured data** such as text, audio or images, **must be expressed numerically**. At a high level, **vector embedding** is a way to **convert an unstructured data point** into an **array of numbers** that **still expresses that data's original meaning**.
 
-The **core logic of vector embeddings** is that **n-dimensional embeddings of similar data points** should be **grouped closely together in n-dimensional space**. That is, the **distance between two vectors** measures their **relatedness**. **Small distances** suggest **high relatedness**, and **large distances** suggest **low relatedness**.
+The **core logic of vector embeddings** is that **n-dimensional embeddings of similar data points** should be **grouped closely together in n-dimensional space**. That is, the **distance between two vectors** measures their **relatedness**. **Small distances** suggest **high relatedness**, and **large distances** suggest **low relatedness**. **<sup>1</sup>**
 
 ## 1.4 Vector Embedding in Paper QA
 
@@ -152,3 +152,6 @@ The final step involves **generating an answer to the user's query**:
 3. **Reference and Source Integration**: The LLM can also be configured via the prompt to **provide references to the papers** or the **sections of papers** it used to generate the answer.
 
 ## References
+
+**[1]** Bergmann, D. and Stryker, C. (2024) What is vector embedding?, IBM. Available at: https://www.ibm.com/think/topics/vector-embedding (Accessed: 22 August 2024). <br><br>
+**[2]** Tripathi, R. (no date) What are vector embeddings, Pinecone. Available at: https://www.pinecone.io/learn/vector-embeddings/ (Accessed: 22 August 2024). <br><br>
