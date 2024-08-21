@@ -57,21 +57,21 @@ class PaperQAGUI:
         self.layout = [
             [sg.Text('Paper QA Interface')],
             [sg.Text('Enter the language model to use: ')],
-            [sg.InputText(default_text='gpt-4o-mini', key='llm_model_input', size=(40, 1))],
+            [sg.InputText(default_text='gpt-4o-mini', key='llm_model_input', size=(40, 1), expand_x=True)],
             [sg.Text(f"Enter the number of papers to embed (Max batch size = 100. "
                      f"Total Zotero database papers = {self.zotero.num_items()}): ")],
-            [sg.InputText(key='num_papers_input', size=(40, 1), enable_events=True)],
+            [sg.InputText(key='num_papers_input', size=(40, 1), enable_events=True, expand_x=True)],
             [sg.Text('Enter the database starting point for embedding')],
-            [sg.InputText(key='start_position_input', size=(40, 1), enable_events=True)],
+            [sg.InputText(key='start_position_input', size=(40, 1), enable_events=True, expand_x=True)],
             [sg.Text('Embedding Output: ')],
-            [sg.Multiline(size=(80, 20), key='console_multiline', autoscroll=True, disabled=True)],
+            [sg.Multiline(size=(80, 20), key='console_multiline', autoscroll=True, disabled=True, expand_x=True)],
             [sg.Text('Paper QA Query')],
-            [sg.InputText(key='query_input', size=(40, 1))],
+            [sg.InputText(key='query_input', size=(40, 1), expand_x=True)],
             [sg.Button('Embed Additional Papers')],
             [sg.Button('Submit Query')],
             [sg.Button('Exit')],
         ]
-        self.window = sg.Window('Paper QA', self.layout)
+        self.window = sg.Window('Paper QA', self.layout, resizable=True, finalize=True)
 
     def embed_papers(self, llm_model: str, num_papers: str, start_position: str):
         """
