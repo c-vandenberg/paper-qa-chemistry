@@ -72,6 +72,13 @@ class PaperQAGUI:
             [sg.Button('Exit')],
         ]
         self.window = sg.Window('Paper QA', self.layout, resizable=True, finalize=True)
+        self.zotero_paper_embedder = ZoteroPaperEmbedder(
+            library_id=ZOTERO_LIBRARY_ID,
+            library_type='user',
+            api_key=ZOTERO_API_KEY,
+            console_multiline=self.window['console_multiline'],
+            window=self.window
+        )
 
     def embed_papers(self, llm_model: str, num_papers: str, start_position: str):
         """
@@ -98,16 +105,8 @@ class PaperQAGUI:
         if not llm_model.strip():
             llm_model = ModelsConstants.GPT_4o_MINI_LLM_MODEL
 
-        zotero_paper_embedder: ZoteroPaperEmbedder = ZoteroPaperEmbedder(
-            library_id=ZOTERO_LIBRARY_ID,
-            library_type='user',
-            api_key=ZOTERO_API_KEY,
-            console_multiline=self.window['console_multiline'],
-            window=self.window
-        )
-
         try:
-            docs: paperqa.Docs = zotero_paper_embedder.load_paperqa_doc(
+            docs: paperqa.Docs = self.zotero_paper_embedder.load_paperqa_doc(
                 pkl_file_path=f"../data/processed/paper_qa_"
                               f"{llm_model.lower().replace(' ', '_').replace('-', '_')}.pkl",
                 llm_model=llm_model
@@ -120,7 +119,7 @@ class PaperQAGUI:
             sg.popup_error("Invalid input. Please enter valid numbers.")
             return
 
-        zotero_paper_embedder.embed_docs(
+        self.zotero_paper_embedder.embed_docs(
             embedded_docs=docs,
             query_limit=int(num_papers),
             query_start=int(start_position)
@@ -151,7 +150,7 @@ class PaperQAGUI:
             llm_model: str = ModelsConstants.GPT_4o_MINI_LLM_MODEL
 
         try:
-            docs: paperqa.Docs = llm_utils.load_paperqa_doc(
+            docs: paperqa.Docs = self.zotero_paper_embedder.load_paperqa_doc(
                 pkl_file_path=f"../data/processed/paper_qa_"
                               f"{llm_model.lower().replace(' ', '_').replace('-', '_')}.pkl",
                 llm_model=llm_model

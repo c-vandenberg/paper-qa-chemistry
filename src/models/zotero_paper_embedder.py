@@ -7,9 +7,9 @@ import time
 import PySimpleGUI as sg
 from paperqa.contrib import ZoteroDB
 from paperqa import utils as paperqa_utils
-from pathlib import PosixPath, Path
+from pathlib import PosixPath, Path, WindowsPath
 from tqdm import tqdm
-from typing import Generator, Optional, List, cast
+from typing import Generator, Optional, List, cast, Union
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
@@ -175,14 +175,14 @@ class ZoteroPaperEmbedder(ZoteroDB):
 
         for i, paper in enumerate(tqdm(papers, desc="Processing Papers", ncols=100, miniters=1, mininterval=0.5),
                                   start=1):
-            zotero_key = paper.details["key"]
+            zotero_key: str = paper.details["key"]
             if zotero_key in embedded_docs.docnames:
                 self.console_output(f"\nSkipping already processed paper {i}: {paper.title}")
                 continue
 
             self.console_output(f"\nProcessing paper {i}: {paper.title}")
 
-            paper_content: PosixPath = paper.pdf
+            paper_content: Union[PosixPath, WindowsPath] = paper.pdf
             num_tokens: int = llm_utils.calculate_tokens_from_pdf(paper_content, 'gpt-4o-mini')
 
             self.console_output(f"\nPaper contains {num_tokens} input tokens")
