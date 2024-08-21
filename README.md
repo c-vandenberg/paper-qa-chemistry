@@ -7,7 +7,6 @@
       <b>Fig 1</b> Paper QA graphical user interface (GUI).
     </p>
   </div>
-<br>
 
 ## 1.1 What is Paper QA?
 
