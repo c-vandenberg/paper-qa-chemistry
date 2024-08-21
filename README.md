@@ -18,7 +18,7 @@ It utilises a combination of **text embeddings**, **vectorization**, and **LLM-b
 
 ### 1.2.1 Features
 
-1. This program in this repository builds on the aforementioned Paper QA package to extract papers from a user's **Zotero database**. Specifically, it has been designed using the author's database of academic papers in the areas of:
+1. This program builds on the aforementioned Paper QA package to extract papers from a user's **Zotero database**. Specifically, it has been designed using the author's database of academic papers in the areas of:
    * **Organic chemistry**
    * **Drug discovery and development**
    * **Cheminformatics**
