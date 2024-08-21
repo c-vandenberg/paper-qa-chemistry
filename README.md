@@ -4,7 +4,7 @@
   <div align="center">
     <img src="https://github.com/user-attachments/assets/77eb0ea1-3e92-4f22-a37a-247ebbc5c85b", alt="paper-qa-gui"/>
     <p>
-      <b>Fig 1</b> Custom Paper QA graphical user interface (GUI) implemented in this repository.
+      <b>Fig 1</b> Custom Paper QA Chemistry graphical user interface (GUI).
     </p>
   </div>
 
@@ -13,6 +13,49 @@
 **Paper QA** **<sup>1</sup>** is a package designed to help users **query and extract information** from a collection of academic papers by **leveraging large language models (LLMs)** such as those provided by **OpenAI**. 
 
 It utilises a combination of **text embeddings**, **vectorization**, and **LLM-based processing** to deliver accurate and contextually relevant answers to queries, with no hallucinations. The answers to the queries are based on the content of the papers that have been embedded.
+
+## 1.2 Paper QA Chemistry Implementation
+
+### 1.2.1 Features
+
+1. This program in this repository builds on the aforementioned Paper QA package to extract papers from a user's **Zotero database**. Specifically the author's database of academic papers in the areas of **organic chemistry**, **cheminformatics**, **drug discovery and development**, and the **applications of machine learning to these areas**.
+2. It **overrrides some of the logic** in `paperqa.contrib.ZoteroDB` as it was discovered during the development, whereby papers past the first 100 in the Zoetero database were not being processed, even if the starting position was set as >100.
+3. It allows the user to **choose the LLM to be used**, how many papers to embed and where in the database to start the processing batch, and input their query. It additionally outputs embedding information (e.g. embedding progress, number of tokens per paper etc.)
+4. It also adds the feature of **pickling the `Docs` object** to a **`.pkl` file**, maintaining the **state** of a the `Docs` object for future runs of the program. One `.pkl` file is generated per LLM used.
+5. Finally, it wraps the bespoke Paper QA application inside `PySimpleGUI` (**Fig 1**).
+
+### 1.2.2 Usage
+
+Although Paper QA Chemistry was designed to use the author's Zotero database, it can be **used with any Zotero database**. After cloning this repository, the user will simply need to provide the **following environment variables** (provided you have a Zotero account and an OpenAI API key with credit):
+1. `ZOTERO_USER_ID`
+2. `ZOTERO_API_KEY`
+3. `OPENAI_API_KEY` 
+
+These can be added eiter to you projects `.env` file, or directly to your IDE.
+
+### 1.2.2 Examples
+
+In **Fig 2** you can see the user interface when embedding further papers into the `Docs` object. The user can specify **how many papers to embed** (maximum batch size of 100 due to Zotero API limits), and **where in the database to start the embedding**. Using both of these the user can embed their **entire library** if needed. 
+
+The user is also given the progress of the embedding, and how many tokens each paper contains, giving a crude estimate of **how much the paper will cost to process**. The **exact cost is not given** as this depends on both the embedding model and LLM used.
+
+<br>
+  <div align="center">
+    <img src="https://github.com/user-attachments/assets/5386a037-6ea1-443e-9252-717ab7d821cb", alt="paper-qa-embedding-example"/>
+    <p>
+      <b>Fig 2</b> Paper QA Chemistry example embedding.
+    </p>
+  </div>
+
+In **Fig 3**, you can see the answer to the query, **"Regarding machine learning in chemistry, what are some recent advances in the areas of retrosynthesis, reaction prediction, and reaction optimisation?**.
+
+<br>
+  <div align="center">
+    <img src="https://github.com/user-attachments/assets/97f02fc5-1780-417f-bcbb-e706cb9b2e5d", alt="paper-qa-example-query-answer"/>
+    <p>
+      <b>Fig 3</b> Paper QA Chemistry example query answer.
+    </p>
+  </div>
 
 ## 1.2 Vectors, Embeddings, and Vector Embeddings
 
@@ -107,6 +150,6 @@ The final step involves **generating an answer to the user's query**:
 
 ## 1.5 Paper QA Chemistry Implementation
 
-This repository builds on the aforementioned Paper QA package to extract papers from a user's **Zotero database**
+This program in this repository builds on the aforementioned Paper QA package to extract papers from a user's **Zotero database**. It overrrides some of the logic in `paperqa.contrib.ZoteroDB` as it was discovered during the development, whereby papers past the first 100 in the Zoetero database were not being processed, even if the starting position was set as >100.
 
 ## References
