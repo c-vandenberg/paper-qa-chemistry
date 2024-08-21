@@ -30,12 +30,12 @@ It utilises a combination of **text embeddings**, **vectorization**, and **LLM-b
 
 ### 1.2.2 Usage
 
-Although Paper QA Chemistry was designed to use the author's Zotero database, it can be **used with any Zotero database**. After cloning this repository, the user will simply need to provide the **following environment variables** (provided you have a Zotero account and an OpenAI API key with credit):
+Although Paper QA Chemistry was designed to use the author's Zotero database, it can be **used with any Zotero database**. After cloning this repository, the user will simply need to provide the **following environment variables** (provided you have a **Zotero account** and an **OpenAI API key with credit**):
 1. `ZOTERO_USER_ID`
 2. `ZOTERO_API_KEY`
 3. `OPENAI_API_KEY` 
 
-These can be added eiter to you projects `.env` file, or directly to your IDE.
+These can be added either to you projects `.env` file, or directly to your IDE.
 
 ### 1.2.3 Examples
 
@@ -87,7 +87,6 @@ Though the terms are often used interchangably in ML, **vectors and embeddings a
 An **embedding** is **any numerical representations** of data that **captures its relevant qualities** in a way that **ML algorithms can process**. The data is **embedded in n-dimensional space**.
 
 In theory, data **doesn't need to be embedded as a vector**. For example, some types of data can be embedded in **tuple form**. However in practice, **embeddings predominantely take the form of vectors in modern ML**.
-
 
 ### 1.3.3 What are Vector Embeddings?
 
@@ -151,9 +150,5 @@ The final step involves **generating an answer to the user's query**:
 1. **Re-scoring**: The **retrieved paper tokens**, which are **most relevant to the query**, are **fed into an LLM** to be re-scored and the text summarised. By default, Paper QA uses `gpt-4o-mini` for this step.
 2. **Contextual Answering with Prompt**: The system has a defined prompt that can be used to contextualise the answer to the query. The summarised text is then put into the prompt and **fed into another LLM**. By default, Paper QA uses `gpt-4-turbo` for this step. The LLM uses this context to generate a **coherent and accurate answer** to the query.
 3. **Reference and Source Integration**: The LLM can also be configured via the prompt to **provide references to the papers** or the **sections of papers** it used to generate the answer.
-
-## 1.6 Paper QA Chemistry Implementation
-
-This program in this repository builds on the aforementioned Paper QA package to extract papers from a user's **Zotero database**. It overrrides some of the logic in `paperqa.contrib.ZoteroDB` as it was discovered during the development, whereby papers past the first 100 in the Zoetero database were not being processed, even if the starting position was set as >100.
 
 ## References
