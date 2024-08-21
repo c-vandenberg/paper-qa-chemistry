@@ -18,11 +18,15 @@ It utilises a combination of **text embeddings**, **vectorization**, and **LLM-b
 
 ### 1.2.1 Features
 
-1. This program in this repository builds on the aforementioned Paper QA package to extract papers from a user's **Zotero database**. Specifically the author's database of academic papers in the areas of **organic chemistry**, **cheminformatics**, **drug discovery and development**, and the **applications of machine learning to these areas**.
-2. It **overrrides some of the logic** in `paperqa.contrib.ZoteroDB` as it was discovered during the development, whereby papers past the first 100 in the Zoetero database were not being processed, even if the starting position was set as >100.
-3. It allows the user to **choose the LLM to be used**, how many papers to embed and where in the database to start the processing batch, and input their query. It additionally outputs embedding information (e.g. embedding progress, number of tokens per paper etc.)
-4. It also adds the feature of **pickling the `Docs` object** to a **`.pkl` file**, maintaining the **state** of a the `Docs` object for future runs of the program. One `.pkl` file is generated per LLM used.
-5. Finally, it wraps the bespoke Paper QA application inside `PySimpleGUI` (**Fig 1**).
+1. This program in this repository builds on the aforementioned Paper QA package to extract papers from a user's **Zotero database**. Specifically, it has been designed using the author's database of academic papers in the areas of:
+   * **Organic chemistry**
+   * **Cheminformatics**
+   * **Drug discovery and development**
+   * And the **applications of machine learning to these areas**.
+3. It **overrrides some of the logic** in `paperqa.contrib.ZoteroDB` as it was discovered during the development, whereby papers past the first 100 in the Zoetero database were not being processed, even if the starting position was set as >100.
+4. It allows the user to **choose the LLM to be used**, how many papers to embed and where in the database to start the processing batch, and input their query. It additionally outputs embedding information (e.g. embedding progress, number of tokens per paper etc.)
+5. It also adds the feature of **pickling the `Docs` object** to a **`.pkl` file**, maintaining the **state** of a the `Docs` object for future runs of the program. One `.pkl` file is generated per LLM used.
+6. Finally, it wraps the bespoke Paper QA application inside `PySimpleGUI` (**Fig 1**).
 
 ### 1.2.2 Usage
 
@@ -33,7 +37,7 @@ Although Paper QA Chemistry was designed to use the author's Zotero database, it
 
 These can be added eiter to you projects `.env` file, or directly to your IDE.
 
-### 1.2.2 Examples
+### 1.2.3 Examples
 
 In **Fig 2** you can see the user interface when embedding further papers into the `Docs` object. The user can specify **how many papers to embed** (maximum batch size of 100 due to Zotero API limits), and **where in the database to start the embedding**. Using both of these the user can embed their **entire library** if needed. 
 
@@ -57,11 +61,11 @@ In **Fig 3**, you can see the answer to the query, **"Regarding machine learning
     </p>
   </div>
 
-## 1.2 Vectors, Embeddings, and Vector Embeddings
+## 1.3 Vectors, Embeddings, and Vector Embeddings
 
-Before we discuss how Paper QA works, it is essential to understand the concepts of **vectors**, **embeddings**, and **vector embeddings**. If the reader understands these topics already, feel free to skip to sections **1.3** and **1.4**.
+Before we discuss how Paper QA works, it is essential to understand the concepts of **vectors**, **embeddings**, and **vector embeddings**. If the reader understands these topics already, feel free to skip to sections **1.4** and **1.4**.
 
-### 1.2.1 What are Vectors?
+### 1.3.1 What are Vectors?
 
 **Vectors** belong to the larger category of **tensors**. In machine learning (ML), "tensor" is used as a generic term for a **single or multi-dimensional array of numbers** in *n*-dimensional space. **<sup>2</sup>**
 
@@ -76,7 +80,7 @@ When describing a tensor, the word **dimension** refers to **how many arrays tha
 4. A **matrix** is a **two-dimensional tensor**, containgin **multiple vectors of the same type of data**. Intuitively, it can be visualised as a **two-dimensional array/grid of scalars**, where **each row or column is a vector**.
    * For example, that weather model might represent the entire month of June as a 3x30 matrix, in which each row is a feature vector describing an individual day’s low, mean and high temperatures.
 
-### 1.2.2 What are Embeddings?
+### 1.3.2 What are Embeddings?
 
 Though the terms are often used interchangably in ML, **vectors and embeddings are not the same thing**.
 
@@ -85,13 +89,13 @@ An **embedding** is **any numerical representations** of data that **captures it
 In theory, data **doesn't need to be embedded as a vector**. For example, some types of data can be embedded in **tuple form**. However in practice, **embeddings predominantely take the form of vectors in modern ML**.
 
 
-### 1.2.3 What are Vector Embeddings?
+### 1.3.3 What are Vector Embeddings?
 
 <br>
   <div align="center">
     <img src="https://github.com/user-attachments/assets/cd7c2ab4-4237-4808-9445-5be686e8f7e2", alt="vector-embeddings"/>
     <p>
-      <b>Fig 2</b> Schematic representation of vector embedding. <b><sup>3</sup></b>
+      <b>Fig 4</b> Schematic representation of vector embedding. <b><sup>3</sup></b>
     </p>
   </div>
 
@@ -102,13 +106,13 @@ Vector embedding **transforms a data point** into an **n-dimensional array of fl
 Vector embedding is achieved by **training an embedding model** on an **data set relevant to the task at hand** or by using a **pretrained embedding model**. is a **vector (a multi-dimensional array of floating points)**, and the **distance between two vectors** measures their **relatedness**: 
 * **Small distances** suggest **high relatedness**, and **large distances** suggest **low relatedness**.
 
-### 1.2.4 How to Compare Vector Embeddings?
+### 1.3.4 How to Compare Vector Embeddings?
 
 Any data that an AI model operates on, including **non-mathematical, unstructured data** such as text, audio or images, **must be expressed numerically**. At a high level, **vector embedding** is a way to **convert an unstructured data point** into an **array of numbers** that **still expresses that data's original meaning**.
 
 The **core logic of vector embeddings** is that **n-dimensional embeddings of similar data points** should be **grouped closely together in n-dimensional space**. That is, the **distance between two vectors** measures their **relatedness**. **Small distances** suggest **high relatedness**, and **large distances** suggest **low relatedness**.
 
-## 1.3 Vector Embedding in Paper QA
+## 1.4 Vector Embedding in Paper QA
 
 In Paper QA, both the **academic papers** and **user queries** are **converted into embeddings**. This allows the system to **compare and analyse the semantic content of the query** against the **vast amount of information contained within the papers**.
 
@@ -116,9 +120,9 @@ As stated previously, the key idea is that **semantically similar pieces of text
 1. **Word Embeddings** - This is when **individual words** are represented as vectors, where **words with similar meanings have similar vectors**
 2. **Sentence or Document Embeddings** - This **extends the concept to entire sentences or documents**, creating a **single vector** that **captures the overall meaning of the text**.
 
-## 1.4 How Does Paper QA Work?
+## 1.5 How Does Paper QA Work?
 
-### 1.4.1 Vector Embedding of Academic Papers
+### 1.5.1 Vector Embedding of Academic Papers
 
 Paper QA uses the following process to embed the academic papers into vectors:
 
@@ -127,20 +131,20 @@ Paper QA uses the following process to embed the academic papers into vectors:
 3. **Vector Embedding**: Each token is then **passed through a pre-trained embedding model** to convert it into a vector. By default Paper QA uses OpenAI's **`text-embedding-3-small`** embedding model.
 4. **Vector Storage**: The resulting vectors are then **stored in a vector database**. This allows for **efficient retrieval and comparison when a query is made**. Paper QA uses a **simple numpy vector database** to embed and search documents.
 
-### 1.4.2 Vector Embedding of Query
+### 1.5.2 Vector Embedding of Query
 
 When a user submits a query, Paper QA follows a similar process:
 1. **Query Preprocessing**: The query is first **processed** to **remove any unnecessary information** and to **prepare it for embedding**.
 2. **Query Embedding**: The processed query then follows the **same process as the academic papers**, with the **same embedding model**, generating a vector that represents the **semantic meaning of the query**.
 
-### 1.4.3 Matching the Query with Relevant Papers
+### 1.5.3 Matching the Query with Relevant Papers
 
 Once the query has been embedded into a vector, Paper QA **compares this vector** with the **vectors of the paper tokens stored in the database**. This involves:
 
 1. **Similarity Search**: The system performs a similarity search between the **query vector** and the **paper vectors**. This involves calculating the **cosine similarity between the vectors**. This is a measure of **how close the vectors are to each other in the vector space**. Paper vectors that are **closer to the query vector** represent paper text that is **more semantically similar** to the query.
 2. **Relevant Text Retrieval**: The tokens (which may represent single words, sentences or entire sections) that are **most similar to the query** are retrieved, ranked and passed to the LLM for **further processing**.
 
-### 1.4.4 LLM Answer Generation
+### 1.5.4 LLM Answer Generation
 
 The final step involves **generating an answer to the user's query**:
 
@@ -148,7 +152,7 @@ The final step involves **generating an answer to the user's query**:
 2. **Contextual Answering with Prompt**: The system has a defined prompt that can be used to contextualise the answer to the query. The summarised text is then put into the prompt and **fed into another LLM**. By default, Paper QA uses `gpt-4-turbo` for this step. The LLM uses this context to generate a **coherent and accurate answer** to the query.
 3. **Reference and Source Integration**: The LLM can also be configured via the prompt to **provide references to the papers** or the **sections of papers** it used to generate the answer.
 
-## 1.5 Paper QA Chemistry Implementation
+## 1.6 Paper QA Chemistry Implementation
 
 This program in this repository builds on the aforementioned Paper QA package to extract papers from a user's **Zotero database**. It overrrides some of the logic in `paperqa.contrib.ZoteroDB` as it was discovered during the development, whereby papers past the first 100 in the Zoetero database were not being processed, even if the starting position was set as >100.
 
