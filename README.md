@@ -12,7 +12,7 @@
 
 **Paper QA** **<sup>1</sup>** is a package designed to help users **query and extract information** from a collection of academic papers by **leveraging large language models (LLMs)** such as those provided by **OpenAI**. 
 
-It utilises a combination of **text embeddings**, **vectorization**, and **LLM-based processing** to deliver accurate and contextually relevant answers to queries, with no hallucinations. The answers to the queries are based on the content of the papers that have been embedded.
+It utilises a combination of **text embeddings**, **vectorization**, and **LLM-based processing** to deliver accurate and contextually relevant answers to queries, with no hallucinations. The answers to the queries are based on the content of the papers that have been embedded, along with **prompts** used to contextualise the answer.
 
 ## 1.2 Paper QA Chemistry Implementation
 
