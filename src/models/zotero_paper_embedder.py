@@ -105,6 +105,13 @@ class ZoteroPaperEmbedder(ZoteroDB):
         If the file does not exist, a new Docs object is created with the specified language model and prompts.
         The Docs object is configured to use a set of predefined prompts for answering questions, and its client is set up.
         """
+        processed_data_dir = os.path.dirname(pkl_file_path)
+        if not os.path.exists(processed_data_dir):
+            os.makedirs(processed_data_dir)
+            process_data_dir_path = Path("data/processed")
+            process_data_dir_absolute_path = process_data_dir_path.resolve()
+            self.console_output(f"Directory {process_data_dir_absolute_path} created")
+
         prompts: str = (
             "Answer the question '{question}' "
             "Use the context below if helpful. "
@@ -216,7 +223,8 @@ class ZoteroPaperEmbedder(ZoteroDB):
             direction: Optional[str] = None,
             collection_name: Optional[str] = None,
     ):
-        """Given a search query, this will lazily iterate over papers in a Zotero library, downloading PDFs as needed.
+        """
+        Given a search query, this will lazily iterate over papers in a Zotero library, downloading PDFs as needed.
 
         This will download all PDFs in the query.
         For information on parameters, see
@@ -233,6 +241,11 @@ class ZoteroPaperEmbedder(ZoteroDB):
 
         Parameters
         ----------
+        limit : int, optional
+            The maximum number of items to return. Default is 25. You may use the `start`
+            parameter to continue where you left off.
+        start : int, optional
+            The index of the first item to return. Default is 0.
         q : str, optional
             Quick search query. Searches only titles and creator fields by default.
             Control with `qmode`.
@@ -249,11 +262,8 @@ class ZoteroPaperEmbedder(ZoteroDB):
             rights, addedBy, numItems (tags).
         direction : str, optional
             asc or desc.
-        limit : int, optional
-            The maximum number of items to return. Default is 25. You may use the `start`
-            parameter to continue where you left off.
-        start : int, optional
-            The index of the first item to return. Default is 0.
+        collection_name : str, optional
+            The name of a collection of papers in the database
 
         Yields
         ------
