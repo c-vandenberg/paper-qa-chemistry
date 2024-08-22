@@ -37,6 +37,8 @@ Although Paper QA Chemistry was designed to use the author's Zotero database, it
 
 These can be added either to you projects `.env` file, or directly to your IDE.
 
+Additionally, the dependencies defined in `requirements.txt` require Python 3.10.
+
 ### 1.2.3 Examples
 
 In **Fig 2** you can see the user interface when embedding further papers into the `Docs` object. The user can specify **how many papers to embed** (maximum batch size of 100 due to Zotero API limits), and **where in the database to start the embedding**. Using both of these the user can embed their **entire library** if needed. 
