@@ -53,7 +53,7 @@ The user is also given the progress of the embedding, and how many tokens each p
 
 In **Fig 3**, you can see the answer to the query: 
 
-> **"Regarding machine learning in chemistry, what are some recent advances in the areas of retrosynthesis, reaction prediction, and reaction optimisation?**.
+> **"Regarding machine learning in chemistry, what are some recent advances in the areas of retrosynthesis, reaction prediction, and reaction optimisation?**
 
 <br>
   <div align="center">
