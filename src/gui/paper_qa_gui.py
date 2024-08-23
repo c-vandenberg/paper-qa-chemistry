@@ -64,10 +64,10 @@ class PaperQAGUI:
             [sg.InputText(key='start_position_input', size=(40, 1), enable_events=True, expand_x=True)],
             [sg.Text('Embedding Output: ')],
             [sg.Multiline(size=(80, 20), key='console_multiline', autoscroll=True, disabled=True, expand_x=True)],
-            [sg.Text('Paper QA Query')],
+            [sg.Text('Paper QA Query: ')],
             [sg.InputText(key='query_input', size=(40, 1), expand_x=True)],
             [sg.Button('Embed Additional Papers')],
-            [sg.Button('Submit Query: ')],
+            [sg.Button('Submit Query')],
             [sg.Button('Exit')],
         ]
         self.window = sg.Window('Paper QA', self.layout, resizable=True, finalize=True)
