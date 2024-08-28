@@ -108,7 +108,7 @@ Vector embeddings are **numerical representations of data points**, and can incl
 
 Vector embedding **transforms a data point** into an **n-dimensional array of floating point numbers** representing that data point's **characteristics** (i.e. its **features**). Vector embeddings can have **dozens, hundreds or even thousands of dimensions**. 
 
-Vector embedding is achieved by **training an embedding model** on an **data set relevant to the task at hand** or by using a **pretrained embedding model**. is a **vector (a multi-dimensional array of floating points)**, and the **distance between two vectors** measures their **relatedness**: 
+Vector embedding is achieved by **training an embedding model** on an **data set relevant to the task at hand** or by using a **pretrained embedding model**. The **distance between two vectors** measures their **relatedness**: 
 * **Small distances** suggest **high relatedness**, and **large distances** suggest **low relatedness**. **<sup>1</sup>**
 
 ### 1.3.4 How to Compare Vector Embeddings?
