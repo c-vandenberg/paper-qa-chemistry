@@ -1,7 +1,7 @@
 # Paper QA - Chemistry
 
 ## Contents
-1. [What is Paper QA?](https://github.com/c-vandenberg/paper-qa-chemistry/tree/master?tab=readme-ov-file#11-what-is-paper-qa)
+1. [What is Paper QA?](https://github.com/c-vandenberg/paper-qa-chemistry/tree/master?tab=readme-ov-file#1-what-is-paper-qa)
 2. [Paper QA Chemistry Implementation](https://github.com/c-vandenberg/paper-qa-chemistry/tree/master?tab=readme-ov-file#12-paper-qa-chemistry-implementation)<br>
   2.1 [Features](https://github.com/c-vandenberg/paper-qa-chemistry/tree/master?tab=readme-ov-file#121-features)<br>
   2.2 [Usage](https://github.com/c-vandenberg/paper-qa-chemistry/tree/master?tab=readme-ov-file#122-usage)<br>
