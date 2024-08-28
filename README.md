@@ -23,10 +23,10 @@ It utilises a combination of **text embeddings**, **vectorization**, and **LLM-b
    * **Drug discovery and development**
    * **Cheminformatics**
    * And the **applications of machine learning to these areas**.
-3. It **overrrides some of the logic** in `paperqa.contrib.ZoteroDB` as it was discovered during the development, whereby papers past the first 100 in the Zoetero database were not being processed, even if the starting position was set as >100.
-4. It allows the user to **choose the LLM to be used**, how many papers to embed and where in the database to start the processing batch, and input their query. It additionally outputs embedding information (e.g. embedding progress, number of tokens per paper etc.)
-5. It also adds the feature of **pickling the `Docs` object** to a **`.pkl` file**, maintaining the **state** of a the `Docs` object for future runs of the program. One `.pkl` file is generated per LLM used.
-6. Finally, it wraps the bespoke Paper QA application inside `PySimpleGUI` (**Fig 1**).
+2. It **overrrides some of the logic** in `paperqa.contrib.ZoteroDB`. This was necessary as it was discovered during the development that papers past the first 100 in the Zoetero database were not being processed, even if the starting position was set as >100.
+3. It allows the user to **choose the LLM to be used**, how many papers to embed and where in the database to start the processing batch, and input their query. It additionally outputs embedding information (e.g. embedding progress, number of tokens per paper etc.)
+4. It also adds the feature of **pickling the `Docs` object** to a **`.pkl` file**, maintaining the **state** of a the `Docs` object for future runs of the program. One `.pkl` file is generated per LLM used.
+5. Finally, it wraps the bespoke Paper QA application inside `PySimpleGUI` (**Fig 1**).
 
 ### 1.2.2 Usage
 
