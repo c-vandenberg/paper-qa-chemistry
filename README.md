@@ -24,18 +24,18 @@ It utilises a combination of **text embeddings**, **vectorization**, and **LLM-b
    * **Cheminformatics**
    * And the **applications of machine learning to these areas**.
 2. It **overrrides some of the logic** in `paperqa.contrib.ZoteroDB`. This was necessary as it was discovered during the development that papers past the first 100 in the Zoetero database were not being processed, even if the starting position was set as >100.
-3. It allows the user to **choose the LLM to be used**, how many papers to embed and where in the database to start the processing batch, and input their query. It additionally outputs embedding information (e.g. embedding progress, number of tokens per paper etc.)
+3. It allows the user to **choose the LLM to be used**, how many papers to embed, and where in the database to start the processing batch, and input their query. It additionally outputs embedding information (e.g. embedding progress, number of tokens per paper etc.)
 4. It also adds the feature of **pickling the `Docs` object** to a **`.pkl` file**, maintaining the **state** of a the `Docs` object for future runs of the program. One `.pkl` file is generated per LLM used.
 5. Finally, it wraps the bespoke Paper QA application inside `PySimpleGUI` (**Fig 1**).
 
 ### 1.2.2 Usage
 
-Although Paper QA Chemistry was designed to use the author's Zotero database, it can be **used with any Zotero database**. After cloning this repository, the user will simply need to provide the **following environment variables** (provided you have a **Zotero account** and an **OpenAI API key with credit**):
+Although Paper QA Chemistry was designed to use the author's Zotero database, it can be **used with any Zotero database**. After cloning this repository, the user will simply need to provide the **following environment variables** (provided they have a **Zotero account** and an **OpenAI API key with credit**):
 1. `ZOTERO_USER_ID`
 2. `ZOTERO_API_KEY`
 3. `OPENAI_API_KEY` 
 
-These can be added either to you projects `.env` file, or directly to your IDE.
+These can be added either to the project's `.env` file, or directly to the IDE.
 
 Additionally, the dependencies defined in `requirements.txt` require Python 3.10.
 
@@ -43,7 +43,7 @@ Additionally, the dependencies defined in `requirements.txt` require Python 3.10
 
 ### 1.2.3 Examples
 
-In **Fig 2** you can see the user interface when embedding further papers into the `Docs` object. The user can specify **how many papers to embed** (maximum batch size of 100 due to Zotero API limits), and **where in the database to start the embedding**. Using both of these the user can embed their **entire library** if needed. 
+In **Fig 2** you can see the user interface when embedding further papers into the `Docs` object. The user can specify **how many papers to embed** (maximum batch size of 100 due to Zotero API limits), and **where in the database to start the embedding**. Using both of these the user can embed their **entire library** if needed (functionality to streamline this is being developed). 
 
 The user is also given the progress of the embedding, and how many tokens each paper contains, giving a crude estimate of **how much the paper will cost to process**. The **exact cost is not given** as this depends on both the embedding model and LLM used.
 
