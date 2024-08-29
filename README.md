@@ -17,7 +17,7 @@
   5.2 [Vector Embedding of Query](https://github.com/c-vandenberg/paper-qa-chemistry/tree/master?tab=readme-ov-file#52-vector-embedding-of-query)<br>
   5.3 [Matching the Query with Relevant Papers](https://github.com/c-vandenberg/paper-qa-chemistry/tree/master?tab=readme-ov-file#53-matching-the-query-with-relevant-papers)<br>
   5.4 [LLM Answer Generation](https://github.com/c-vandenberg/paper-qa-chemistry/tree/master?tab=readme-ov-file#54-llm-answer-generation)<br>
-6. [References]()
+6. [References](https://github.com/c-vandenberg/paper-qa-chemistry/tree/master?tab=readme-ov-file#6-references)
 
 
 
