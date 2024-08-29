@@ -3,8 +3,21 @@
 ## Contents
 1. [What is Paper QA?](https://github.com/c-vandenberg/paper-qa-chemistry/tree/master?tab=readme-ov-file#1-what-is-paper-qa)
 2. [Paper QA Chemistry Implementation](https://github.com/c-vandenberg/paper-qa-chemistry/tree/master?tab=readme-ov-file#2-paper-qa-chemistry-implementation)<br>
-  2.1 [Features](https://github.com/c-vandenberg/paper-qa-chemistry/tree/master?tab=readme-ov-file#121-features)<br>
-  2.2 [Usage](https://github.com/c-vandenberg/paper-qa-chemistry/tree/master?tab=readme-ov-file#122-usage)<br>
+  2.1 [Features](https://github.com/c-vandenberg/paper-qa-chemistry/tree/master?tab=readme-ov-file#21-features)<br>
+  2.2 [Usage](https://github.com/c-vandenberg/paper-qa-chemistry/tree/master?tab=readme-ov-file#22-usage)<br>
+  2.3 [Examples](https://github.com/c-vandenberg/paper-qa-chemistry/tree/master?tab=readme-ov-file#23-examples)<br>
+3. [Vectors, Embeddings, and Vector Embeddings](https://github.com/c-vandenberg/paper-qa-chemistry/tree/master?tab=readme-ov-file#3-vectors-embeddings-and-vector-embeddings)<br>
+  3.1 [What are Vectors?](https://github.com/c-vandenberg/paper-qa-chemistry/tree/master?tab=readme-ov-file#31-what-are-vectors)<br>
+  3.2 [What are Embeddings?](https://github.com/c-vandenberg/paper-qa-chemistry/tree/master?tab=readme-ov-file#32-what-are-embeddings)<br>
+  3.3 [What are Vector Embeddings?](https://github.com/c-vandenberg/paper-qa-chemistry/tree/master?tab=readme-ov-file#33-what-are-vector-embeddings)<br>
+  3.4 [How to Compare Vector Embeddings?](https://github.com/c-vandenberg/paper-qa-chemistry/tree/master?tab=readme-ov-file#34-how-to-compare-vector-embeddings)<br>
+4. [Vector Embedding in Paper QA](https://github.com/c-vandenberg/paper-qa-chemistry/tree/master?tab=readme-ov-file#4-vector-embedding-in-paper-qa)
+5. [How Does Paper QA Work?](https://github.com/c-vandenberg/paper-qa-chemistry/tree/master?tab=readme-ov-file#5-how-does-paper-qa-work)<br>
+  5.1 [Vector Embedding of Academic Papers](https://github.com/c-vandenberg/paper-qa-chemistry/tree/master?tab=readme-ov-file#51-vector-embedding-of-academic-papers)<br>
+  5.2 [Vector Embedding of Query](https://github.com/c-vandenberg/paper-qa-chemistry/tree/master?tab=readme-ov-file#52-vector-embedding-of-query)<br>
+  5.3 [Matching the Query with Relevant Papers](https://github.com/c-vandenberg/paper-qa-chemistry/tree/master?tab=readme-ov-file#53-matching-the-query-with-relevant-papers)<br>
+  5.4 [LLM Answer Generation](https://github.com/c-vandenberg/paper-qa-chemistry/tree/master?tab=readme-ov-file#54-llm-answer-generation)<br>
+6. [References]()
 
 
 
@@ -75,7 +88,7 @@ In **Fig 3**, you can see the answer to the query:
     </p>
   </div>
 
-## 3 Vectors, Embeddings, and Vector Embeddings
+## 3. Vectors, Embeddings, and Vector Embeddings
 
 Before we discuss how Paper QA works, it is essential to understand the concepts of **vectors**, **embeddings**, and **vector embeddings**. If the reader understands these topics already, feel free to skip to sections **1.4** and **1.4**.
 
@@ -165,7 +178,7 @@ The final step involves **generating an answer to the user's query**:
 2. **Contextual Answering with Prompt**: The system has a defined prompt that can be used to contextualise the answer to the query. The summarised text is then put into the prompt and **fed into another LLM**. By default, Paper QA uses `gpt-4-turbo` for this step. The LLM uses this context to generate a **coherent and accurate answer** to the query.
 3. **Reference and Source Integration**: The LLM can also be configured via the prompt to **provide references to the papers** or the **sections of papers** it used to generate the answer.
 
-## References
+## 6. References
 
 **[1]** Bergmann, D. and Stryker, C. (2024) What is vector embedding?, IBM. Available at: https://www.ibm.com/think/topics/vector-embedding (Accessed: 22 August 2024). <br><br>
 **[2]** Tripathi, R. (no date) What are vector embeddings, Pinecone. Available at: https://www.pinecone.io/learn/vector-embeddings/ (Accessed: 22 August 2024). <br><br>
