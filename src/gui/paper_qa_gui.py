@@ -145,6 +145,10 @@ class PaperQAGUI:
         -----
         If the query is "exit", the window is closed.
         """
+        if not query.strip():
+            sg.popup_error("Query cannot be empty. Please enter a valid query.")
+            return
+
         if not llm_model.strip():
             llm_model: str = ModelsConstants.GPT_4o_MINI_LLM_MODEL
 
