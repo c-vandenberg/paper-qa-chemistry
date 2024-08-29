@@ -19,8 +19,6 @@
   5.4 [LLM Answer Generation](https://github.com/c-vandenberg/paper-qa-chemistry/tree/master?tab=readme-ov-file#54-llm-answer-generation)<br>
 6. [References](https://github.com/c-vandenberg/paper-qa-chemistry/tree/master?tab=readme-ov-file#6-references)
 
-
-
 <br>
   <div align="center">
     <img src="https://github.com/user-attachments/assets/77eb0ea1-3e92-4f22-a37a-247ebbc5c85b", alt="paper-qa-gui"/>
