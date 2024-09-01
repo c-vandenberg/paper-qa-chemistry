@@ -88,7 +88,7 @@ In **Fig 3**, you can see the answer to the query:
 
 ## 3. Vectors, Embeddings, and Vector Embeddings
 
-Before we discuss how Paper QA works, it is essential to understand the concepts of **vectors**, **embeddings**, and **vector embeddings**. If the reader understands these topics already, feel free to skip to sections **1.4** and **1.4**.
+Before we discuss how Paper QA works, it is essential to understand the concepts of **vectors**, **embeddings**, and **vector embeddings**. If the reader understands these topics already, feel free to skip to sections **4** and **5**.
 
 ### 3.1 What are Vectors?
 
